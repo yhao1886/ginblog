@@ -1,0 +1,12 @@
+app:
+  name: ginblog
+  env: local
+  url: localhost:8080
+
+
+datasource:
+  host: localhost
+  port: 33066
+  database: ginblog
+  username: root
+  password: 12345566
