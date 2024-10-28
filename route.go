@@ -1,7 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"ginblog/controller"
 
-func StartRouter(r *gin.Engine) *gin.Engine {
-	return r
+	"github.com/gin-gonic/gin"
+)
+
+func StartRouter(r *gin.Engine) {
+	base := r.Group("/api/front")
+	{
+		base.GET("/home", controller.GetHomeInfo)
+	}
 }
