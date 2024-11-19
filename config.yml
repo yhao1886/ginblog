@@ -1,6 +1,6 @@
 Server:
   Mode: debug # debug | release
-  Port: :8765
+  Port: :8080
   DbType: "mysql" # mysql | sqlite
   DbAutoMigrate: true # 是否自动迁移数据库表结构 (表结构没变可以不迁移, 提高启动速度)
   DbLogMode: "error" # 日志级别 silent, error, warn, info, 默认 info
@@ -9,18 +9,18 @@ JWT:
   Expire: 24 # hour
   Issuer: "gin-vue-blog"
 Mysql:
-  Host: "127.0.0.1"
-  Port: "33066"
+  Host: ${MYSQL_HOST}
+  Port: ${MYSQL_PORT}
   Config: "charset=utf8mb4&parseTime=True&loc=Local" # 其他配置, 例如时区
   Dbname: "gvb"
-  Username: "root"
-  Password: "12345566"
+  Username: 'root'
+  Password: ${MYSQL_PASSWORD}
 Sqlite:
   Dsn: "gvb.db"
 Redis:
   DB: 7
-  Addr: '127.0.0.1:63799'
-  Password: '66554321'
+  Addr: ${REDIS_HOST}:44313
+  Password: sDETxJMA
 Session:
   Name: "mysession"
   Salt: "salt"
