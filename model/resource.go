@@ -1,5 +1,7 @@
 package model
 
+import "gorm.io/gorm"
+
 type Resource struct {
 	Model
 	Name      string `gorm:"unique;type:varchar(50)" json:"name"`
@@ -9,4 +11,9 @@ type Resource struct {
 	Anonymous bool   `json:"is_anonymous"`
 
 	Roles []*Role `json:"roles" gorm:"many2many:role_resource"`
+}
+
+func GetResource(db *gorm.DB, uri, method string) (resource Resource, err error) {
+	result := db.Where("url = ? AND method = ?", uri, method).First(&resource)
+	return resource, result.Error
 }

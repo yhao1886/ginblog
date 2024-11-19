@@ -1,5 +1,7 @@
 package model
 
+import "gorm.io/gorm"
+
 type Article struct {
 	Model
 
@@ -19,4 +21,45 @@ type Article struct {
 	Tags     []*Tag    `gorm:"many2many:article_tag;joinForeignKey:article_id" json:"tags"`
 	Category *Category `gorm:"foreignkey:CategoryId" json:"category"`
 	User     *UserAuth `gorm:"foreignkey:UserId" json:"user"`
+}
+
+func GetArticleList(db *gorm.DB, page, size, categoryId, tagId int) (data []Article, total int64, err error) {
+	db = db.Model(&Article{})
+	db = db.Where("is_delete = 0 AND status = 1")
+
+	if categoryId != 0 {
+		db = db.Where("category_id = ?", categoryId)
+	}
+	if tagId != 0 {
+		db = db.Where("id IN (SELECT article_id FROM article_tag where tag_id = ?", tagId)
+	}
+
+	db = db.Count(&total)
+	result := db.Preload("Tags").Preload("Category").
+		Order("is_top DESC, id DESC").Scopes(Paginate(page, size)).Find(&data)
+	return data, total, result.Error
+}
+
+func Paginate(page, size int) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		if page <= 0 {
+			page = 1
+		}
+		switch {
+		case size > 100:
+			size = 100
+		case size <= 0:
+			size = 10
+		}
+		offset := (page - 1) * size
+		return db.Offset(offset).Limit(size)
+	}
+}
+
+func GetBlogArticle(db *gorm.DB, id int) (data Article, err error) {
+	result := db.Model(&Article{}).Where("id = ?", id).Find(&data)
+	if result.Error != nil {
+		return data, result.Error
+	}
+	return data, nil
 }

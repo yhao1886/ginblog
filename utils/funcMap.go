@@ -1,6 +1,9 @@
 package utils
 
-import "time"
+import (
+	"time"
+
+)
 
 func DateFormat(date time.Time, layout string) string {
 	return date.Format(layout)
@@ -35,3 +38,4 @@ func IsOdd(number int) bool {
 func IsEven(number int) bool {
 	return number%2 == 0
 }
+
