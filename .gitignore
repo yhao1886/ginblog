@@ -2,3 +2,27 @@
 .DS_Store
 
 __debug_*
+
+# Clacky related files
+.1024*
+
+# System specific files
+Thumbs.db
+
+# Environment and Configuration Files
+.env
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# Go
+*.exe
+*.out
+*.test
+
+# Database Files
+*.sqlite
+*.db
+*.sql
+*.sql-journal
