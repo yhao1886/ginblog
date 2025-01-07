@@ -4,3 +4,4 @@ fileChangeLogs:
   - cmd/main.go
   - config.yml
   - README.md
+  - swag_init.sh
