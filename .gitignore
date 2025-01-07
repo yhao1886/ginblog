@@ -41,3 +41,7 @@ core.*
 *.db
 *.sql
 *.sql-journal
+
+.1024*
+!.1024
+.breakpoints

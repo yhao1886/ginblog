@@ -1,1 +1,1 @@
-run_command: go run cmd/main.go
+run_command: cd cmd && go run main.go

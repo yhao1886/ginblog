@@ -1,19 +1,26 @@
-{ pkgs ? import <nixpkgs> {} }:
-pkgs.mkShell {
-    shellHook = ''
-        alias ll="ls -l"
-        export PS1="\[\e[0m\]\w\[\e[0m\]#\[\e[0m\] "
-        export LANG=en_US.UTF-8
-        export GO111MODULE=on
-        export GOPROXY=https://goproxy.cn,direct
-        export ACK_GINKGO_RC=true
-        export PATH="$HOME/go/bin/:$PATH"
-    '';
-    packages = [
-        # env
-        pkgs.go_1_21
-        # lsp
-        pkgs.gopls
-        pkgs.glibcLocales
-    ];
-}
+# .1024nix is the NIX configuration file for the Clacky development environment, used to establish an isolated development environment with core dependencies and shellHook for configuring environment variables, aliases, and other shell configurations.
+# After modifying the file, you can execute the command 'nix-shell .1024nix' in the Terminal to apply the changes.
+# For more information, please refer to the documentation: https://docs.clacky.ai/clacky-workspace/configure
+# .1024nix is the NIX configuration file for the Clacky development environment, used to establish an isolated development environment with core dependencies and shellHook for configuring environment variables, aliases, and other shell configurations.
+# After modifying the file, you can execute the command 'nix-shell .1024nix' in the Terminal to apply the changes.
+# For more information, please refer to the documentation: https://docs.clacky.ai/clacky-workspace/configure
+    { pkgs ? import <nixpkgs> {} }:
+    pkgs.mkShell {
+        shellHook = ''
+            alias ll="ls -l"
+            export PS1="\[[0m\]\w\[[0m\]#\[[0m\] "
+            export LANG=en_US.UTF-8
+            export GO111MODULE=on
+            export GOPROXY=https://goproxy.io,direct
+            export ACK_GINKGO_RC=true
+            export PATH="$HOME/go/bin/:$PATH"
+            export CGO_CFLAGS="-I/usr/include"
+            export CGO_LDFLAGS="-L/usr/lib/x86_64-linux-gnu"
+            export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/lib/x86_64-linux-gnu 
+        '';
+        packages = [
+            # lsp
+            pkgs.gopls
+            pkgs.glibcLocales
+        ];
+    }
