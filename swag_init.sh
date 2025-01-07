@@ -1,2 +1,2 @@
 swag init -g ./cmd/main.go
-jdbhcshgcchsgdavccdushvcgh
+jdbhcshgcchsgdavccdushvcghjcyfdsatgcvs
